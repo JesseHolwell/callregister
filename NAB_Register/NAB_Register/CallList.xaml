@@ -1,0 +1,78 @@
+﻿<Window x:Class="NAB_Register.CallList"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NAB_Register"
+        mc:Ignorable="d"
+        Title="Call Register - Call List" Height="390" Width="770" Background="#BE0D00">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="225*"/>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="60"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="200*"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Border BorderBrush="Black" Background="#FFF6F8FA" Grid.ColumnSpan="8" Grid.RowSpan="4"/>
+
+        <Label Content="From:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="61" Grid.Column="1" Margin="0,10,0,0" Grid.RowSpan="2"/>
+        <Label Content="To:" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalAlignment="Top" Width="61" Grid.Row="1" Grid.Column="1" Margin="0,30,0,0" Grid.RowSpan="2"/>
+        <DatePicker x:Name="dpFromDate" VerticalAlignment="Top" SelectedDateChanged="dpFromDate_SelectedDateChanged" Grid.Column="2" Grid.Row="1"/>
+        <DatePicker x:Name="dpToDate" VerticalAlignment="Top" SelectedDateChanged="dpToDate_SelectedDateChanged" Grid.Column="2" Grid.Row="2"/>
+        <CheckBox x:Name="chkImportant" Content="Important Only" Grid.Column="1" Margin="0,5,10,0" Grid.Row="3" VerticalAlignment="Top" Grid.ColumnSpan="2" HorizontalAlignment="Right" Checked="chkImportant_Checked" Unchecked="chkImportant_Unchecked"/>
+
+        <Label Content="User ID:" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" Margin="0,10,0,0" Grid.RowSpan="2"/>
+        <Label Content="Banker:" HorizontalContentAlignment="Right" Margin="0,30,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.Row="1" Grid.RowSpan="2"/>
+        <Label Content="Team:" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" Grid.Row="2" Margin="0,30,0,0" Grid.RowSpan="2"/>
+
+        <TextBox x:Name="txtUserID" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="txtUserID_TextChanged" Grid.Column="4" Grid.Row="1"/>
+        <ComboBox x:Name="cmbBanker" VerticalAlignment="Top" SelectionChanged="cmbBanker_SelectionChanged" Grid.Column="4" Grid.Row="2" />
+        <ComboBox x:Name="cmbTeam" VerticalAlignment="Top" SelectionChanged="cmbTeam_SelectionChanged" Grid.Column="4" Grid.Row="3" />
+
+        <Label Content="Product:" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="5" Margin="0,10,0,0" Grid.RowSpan="2"/>
+        <Label Content="Request Type:" HorizontalContentAlignment="Right" Margin="0,30,0,0" VerticalAlignment="Top" Grid.Column="5" Grid.Row="1" Grid.RowSpan="2"/>
+        <Label Content="Feedback Type:" HorizontalContentAlignment="Right" Margin="0,30,0,0" VerticalAlignment="Top" Grid.Column="5" Grid.Row="2" Grid.RowSpan="2"/>
+
+        <ComboBox x:Name="cmbProduct" VerticalAlignment="Top" SelectionChanged="cmbProduct_SelectionChanged" Grid.Column="6" Grid.Row="1"/>
+        <ComboBox x:Name="cmbRequest" VerticalAlignment="Top" SelectionChanged="cmbRequest_SelectionChanged" Grid.Column="6" Grid.Row="2"/>
+        <ComboBox x:Name="cmbFeedback" VerticalAlignment="Top" SelectionChanged="cmbFeedback_SelectionChanged" Grid.Column="6" Grid.Row="3"/>
+
+        <DataGrid x:Name="dgCalls" Margin="0,10" MouseDoubleClick="dgCalls_MouseDoubleClick" CanUserReorderColumns="False" GridLinesVisibility="None" AlternatingRowBackground="#FFE6E6E6" CanUserDeleteRows="False" CanUserAddRows="False" IsReadOnly="True" BorderThickness="1" SelectionMode="Single" SelectionUnit="FullRow" AutoGenerateColumns="False" Grid.ColumnSpan="6" Grid.Row="4" Grid.Column="1">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding CallID}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="UserID" Binding="{Binding UserID}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Banker" Binding="{Binding Banker}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Team" Binding="{Binding Team}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Product" Binding="{Binding Product}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Request Type" Binding="{Binding Request}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Feedback Type" Binding="{Binding Feedback}" Width="auto"></DataGridTextColumn>
+                <DataGridTextColumn Header="Comments" Binding="{Binding Comments}" Width="*"></DataGridTextColumn>
+                <DataGridTextColumn Header="Important" Binding="{Binding Important}" Width="auto"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button x:Name="btnBack" Content="Back" Click="btnBack_Click" Grid.Column="6" Grid.Row="5" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+        <Button x:Name="btnReset" Content="Reset" Click="btnReset_Click" Grid.Column="6" Grid.Row="5" HorizontalAlignment="Left" Width="75" Margin="0,0,0,0"/>
+        <Button x:Name="btnExport" Content="Export to CSV" Click="btnExport_Click" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Width="100" Grid.ColumnSpan="2"/>
+    </Grid>
+</Window>
