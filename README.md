@@ -5,9 +5,17 @@ The goal of the application is to allow the call center to observe common and re
 There were strict technical limitation on the deployment of this application.
 I decided to use a MS Access database on a shared drive to allow for a lightweight installation while giving everyone access.
 
-![Screenshot1](Resources/Screenshot1.png)
 
-![Screenshot2](Resources/Screenshot1.png)
+![Screenshot1](NAB_Register/NAB_Register/Resources/call_register1.png)
 
-![Screenshot3](Resources/Screenshot3.png)
-Data is managed through the settings window which requires a login (hint: admin admin)
+The main screen for entering and collecting data.
+
+
+![Screenshot2](NAB_Register/NAB_Register/Resources/call_register2.png)
+
+The screen that presents relevant data to management to make informed business decisions based on specific queries.
+
+
+![Screenshot3](NAB_Register/NAB_Register/Resources/call_register3.png)
+
+Data is managed through the settings window which requires a login (hint: admin admin).
