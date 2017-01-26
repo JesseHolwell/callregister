@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NAB_Register.Data
+﻿namespace NAB_Register.Data
 {
-    class Request
+    internal class Request
     {
         public int? ID { get; set; }
         public string Name { get; set; }
-        public string Product{ get; set; }
+        public string Product { get; set; }
         public bool? IsActive { get; set; }
 
         public Request(int? id, string name, string product, bool? active)
@@ -25,6 +19,5 @@ namespace NAB_Register.Data
         {
             return Name;
         }
-
     }
 }

@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -21,9 +12,9 @@ namespace NAB_Register.Management
     public partial class Banker : Window
     {
         public string connectionString;
-        Data.Banker banker;
-        List<Data.Team> teams = new List<Data.Team>();
-        
+        private Data.Banker banker;
+        private List<Data.Team> teams = new List<Data.Team>();
+
         public Banker(string connStr, object b)
         {
             InitializeComponent();
@@ -44,7 +35,6 @@ namespace NAB_Register.Management
                 cmbTeam.Text = banker.Team;
                 chkActive.IsChecked = banker.IsActive;
             }
-
         }
 
         private void GetDataItems()
@@ -80,7 +70,6 @@ namespace NAB_Register.Management
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -88,7 +77,7 @@ namespace NAB_Register.Management
             if (!string.IsNullOrWhiteSpace(txtFName.Text) && !string.IsNullOrWhiteSpace(txtLName.Text) && cmbTeam.SelectedItem != null)
             {
                 Mouse.OverrideCursor = Cursors.Wait;
-                
+
                 string query = "";
                 int? id = null;
 
@@ -100,7 +89,6 @@ namespace NAB_Register.Management
                 {
                     id = banker.ID;
                     query = "UPDATE Banker SET FName = ? , LName = ? , Team = ? , IsActive = ? WHERE BankerID = ? ";
-
                 }
 
                 banker = new Data.Banker(id, txtFName.Text, txtLName.Text, cmbTeam.SelectedItem.ToString(), Convert.ToBoolean(chkActive.IsChecked));

@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -21,7 +11,7 @@ namespace NAB_Register.Management
     public partial class Feedback : Window
     {
         public string connectionString;
-        Data.Feedback feedback;
+        private Data.Feedback feedback;
 
         public Feedback(string connStr, object f)
         {
@@ -39,9 +29,7 @@ namespace NAB_Register.Management
                 feedback = f as Data.Feedback;
                 txtFeedbackName.Text = feedback.Name;
                 chkActive.IsChecked = feedback.IsActive;
-
             }
-
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -61,7 +49,6 @@ namespace NAB_Register.Management
                 {
                     id = feedback.ID;
                     query = "UPDATE Feedback SET FeedbackName = ? , IsActive = ? WHERE FeedbackID = ? ";
-
                 }
 
                 feedback = new Data.Feedback(id, txtFeedbackName.Text, Convert.ToBoolean(chkActive.IsChecked));

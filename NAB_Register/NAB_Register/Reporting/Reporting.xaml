@@ -8,15 +8,14 @@
         Title="Reporting" Height="150" Width="300" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Grid>
 
-        <Label x:Name="lblEmail" Content="Email:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="65"/>
-        <Label x:Name="lblPassword" Content="Password:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="65"/>
-        <Label x:Name="lblDate" Content="Date:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="65"/>
-        
-        <TextBox x:Name="txtEmail" Height="23" Margin="80,14,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <PasswordBox x:Name="txtPassword" HorizontalContentAlignment="Left" Margin="80,42,10,0" VerticalAlignment="Top" Height="23"/>
-        <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="80,70,0,0" Height="24" VerticalAlignment="Top"/>
-        
-        <Button x:Name="btnSubmit" Content="Send Emails" Margin="0,72,10,0" Click="btnSubmit_Click" HorizontalAlignment="Right" Width="80" Height="22" VerticalAlignment="Top"/>
-       
+        <Label x:Name="lblEmail" Content="Email:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="65" />
+        <Label x:Name="lblPassword" Content="Password:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" Width="65" />
+        <Label x:Name="lblDate" Content="Date:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="65" />
+
+        <TextBox x:Name="txtEmail" Height="23" Margin="80,14,10,0" TextWrapping="Wrap" VerticalAlignment="Top" />
+        <PasswordBox x:Name="txtPassword" HorizontalContentAlignment="Left" Margin="80,42,10,0" VerticalAlignment="Top" Height="23" />
+        <DatePicker x:Name="dpDate" HorizontalAlignment="Left" Margin="80,70,0,0" Height="24" VerticalAlignment="Top" />
+
+        <Button x:Name="btnSubmit" Content="Send Emails" Margin="0,72,10,0" Click="btnSubmit_Click" HorizontalAlignment="Right" Width="80" Height="22" VerticalAlignment="Top" />
     </Grid>
 </Window>

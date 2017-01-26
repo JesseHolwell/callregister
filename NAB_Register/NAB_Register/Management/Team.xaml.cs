@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -20,9 +10,8 @@ namespace NAB_Register.Management
     /// </summary>
     public partial class Team : Window
     {
-
         public string connectionString;
-        Data.Team team;
+        private Data.Team team;
 
         public Team(string connStr, object t)
         {
@@ -43,14 +32,13 @@ namespace NAB_Register.Management
                 txtEmail.Text = team.Email;
                 chkActive.IsChecked = team.IsActive;
             }
-
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             int num;
             if (!string.IsNullOrWhiteSpace(txtNumber.Text) && !string.IsNullOrWhiteSpace(txtName.Text) && !string.IsNullOrWhiteSpace(txtEmail.Text) && int.TryParse(txtNumber.Text, out num))
-                {
+            {
                 Mouse.OverrideCursor = Cursors.Wait;
 
                 string query = "";
@@ -64,7 +52,6 @@ namespace NAB_Register.Management
                 {
                     id = team.ID;
                     query = "UPDATE Team SET TeamNumber = ? , TeamName = ?, Email = ?, IsActive = ? WHERE TeamID = ? ";
-
                 }
 
                 team = new Data.Team(id, Convert.ToInt32(txtNumber.Text), txtName.Text, txtEmail.Text, Convert.ToBoolean(chkActive.IsChecked));
@@ -114,7 +101,6 @@ namespace NAB_Register.Management
                 {
                     MessageBox.Show("Team number must be an integer!", "Error");
                 }
-                
             }
         }
     }

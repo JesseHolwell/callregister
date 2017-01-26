@@ -1,42 +1,88 @@
-﻿using System;
+﻿using NAB_Register.Management;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Windows;
-using System.Windows.Media;
-using NAB_Register.Data;
 using System.Data.OleDb;
 using System.IO;
-using System.Timers;
-using System.Windows.Input;
 using System.Linq;
-using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using Banker = NAB_Register.Data.Banker;
+using Request = NAB_Register.Data.Request;
 
 namespace NAB_Register
 {
     /// <summary>
-    /// Interaction logic for Home.xaml
+    ///     Interaction logic for Home.xaml
     /// </summary>
     public partial class Home : Window
     {
+        private void cmbBanker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetTeam();
+            lblBanker.Foreground = brushText;
+        }
+
+        private void cmbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            PopulateRequests();
+            lblProduct.Foreground = brushText;
+        }
+
+        private void cmbFeedback_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            EnableArticles();
+            lblFeedback.Foreground = brushText;
+        }
+
+        private void cmbRequest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lblRequest.Foreground = brushText;
+        }
+
+        private void txtArticle_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lblArticle.Foreground = brushText;
+        }
+
+        private void txtComments_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lblComments.Foreground = brushText;
+        }
+
+        private void dgRecentCalls_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            OpenCall(dgRecentCalls.SelectedItem);
+        }
+
+        private void btnCallList_Click(object sender, RoutedEventArgs e)
+        {
+            var win = new CallList(GetConnectionString());
+            win.Show();
+        }
+
         #region Variables
 
-        private string connectionString = "";
+        private readonly string connectionString = "";
         private bool Submitted;
 
         //UI Content
-        List<Data.Call> Calls = new List<Data.Call>();
-        List<Banker> Bankers = new List<Banker>();
-        List<string> Products = new List<string>();
-        List<Request> Requests = new List<Request>();
-        List<string> Feedbacks = new List<string>();
+        private readonly List<Data.Call> Calls = new List<Data.Call>();
+
+        private readonly List<Banker> Bankers = new List<Banker>();
+        private readonly List<string> Products = new List<string>();
+        private readonly List<Request> Requests = new List<Request>();
+        private readonly List<string> Feedbacks = new List<string>();
 
         //Design
-        static readonly Brush brushText = Brushes.Black;
-        static readonly Brush brushError = Brushes.Red;
-        static readonly Brush brushControl = Brushes.White;
-        static readonly Brush brushReadOnly = Brushes.LightGray;
+        private static readonly Brush brushText = Brushes.Black;
 
-        #endregion
+        private static readonly Brush brushError = Brushes.Red;
+        private static readonly Brush brushControl = Brushes.White;
+        private static readonly Brush brushReadOnly = Brushes.LightGray;
+
+        #endregion Variables
 
         #region Methods
 
@@ -53,19 +99,16 @@ namespace NAB_Register
             lblLoggedInUser.Content = Environment.UserName;
             connectionString = GetConnectionString();
             if (!string.IsNullOrWhiteSpace(connectionString))
-            {
                 GetDataItems();
-            }
-
         }
 
         private string GetConnectionString()
         {
-            string connectionString = "";
+            var connectionString = "";
 
             try
             {
-                using (StreamReader sr = new StreamReader("Data\\config.txt"))
+                using (var sr = new StreamReader("Data\\config.txt"))
                 {
                     connectionString = @"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + sr.ReadLine();
                 }
@@ -86,25 +129,22 @@ namespace NAB_Register
             {
                 GetCallList();
 
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
+                using (var connection = new OleDbConnection(connectionString))
                 {
-                    string queryBankers = "SELECT * FROM Banker";
-                    string queryProducts = "SELECT * FROM Product";
-                    string queryRequests = "SELECT * FROM Request";
-                    string queryFeedbacks = "SELECT * FROM Feedback";
+                    var queryBankers = "SELECT * FROM Banker";
+                    var queryProducts = "SELECT * FROM Product";
+                    var queryRequests = "SELECT * FROM Request";
+                    var queryFeedbacks = "SELECT * FROM Feedback";
 
                     //get bankers
-                    OleDbCommand command = new OleDbCommand(queryBankers, connection);
+                    var command = new OleDbCommand(queryBankers, connection);
                     connection.Open();
 
-                    OleDbDataReader reader = command.ExecuteReader();
+                    var reader = command.ExecuteReader();
                     while (reader.Read())
-                    {
-                        if (Convert.ToBoolean(reader[4]) == true)
-                        {
-                            Bankers.Add(new Banker(null, reader[1].ToString(), reader[2].ToString(), reader[3].ToString(), null));
-                        }
-                    }
+                        if (Convert.ToBoolean(reader[4]))
+                            Bankers.Add(new Banker(null, reader[1].ToString(), reader[2].ToString(),
+                                reader[3].ToString(), null));
                     reader.Close();
 
                     //get products
@@ -112,12 +152,8 @@ namespace NAB_Register
 
                     reader = command.ExecuteReader();
                     while (reader.Read())
-                    {
-                        if (Convert.ToBoolean(reader[2]) == true)
-                        {
+                        if (Convert.ToBoolean(reader[2]))
                             Products.Add(reader[1].ToString());
-                        }
-                    }
                     reader.Close();
 
                     //get request types
@@ -125,12 +161,8 @@ namespace NAB_Register
 
                     reader = command.ExecuteReader();
                     while (reader.Read())
-                    {
-                        if (Convert.ToBoolean(reader[3]) == true)
-                        {
+                        if (Convert.ToBoolean(reader[3]))
                             Requests.Add(new Request(null, reader[1].ToString(), reader[2].ToString(), null));
-                        }
-                    }
                     reader.Close();
 
                     //get feedback types
@@ -138,15 +170,10 @@ namespace NAB_Register
 
                     reader = command.ExecuteReader();
                     while (reader.Read())
-                    {
-                        if (Convert.ToBoolean(reader[2]) == true)
-                        {
+                        if (Convert.ToBoolean(reader[2]))
                             Feedbacks.Add(reader[1].ToString());
-                        }
-                    }
                     reader.Close();
                     connection.Close();
-
                 }
 
                 cmbBanker.ItemsSource = Bankers;
@@ -156,26 +183,27 @@ namespace NAB_Register
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Errors while connecting to the database. Try again in a few moments or try setting the location again", "Error");
+                MessageBox.Show(
+                    "Errors while connecting to the database. Try again in a few moments or try setting the location again",
+                    "Error");
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void GetCallList()
         {
-            string query = "SELECT * FROM Call";
+            var query = "SELECT * FROM Call";
 
-            using (OleDbConnection connection = new OleDbConnection(connectionString))
+            using (var connection = new OleDbConnection(connectionString))
             {
-                OleDbCommand command = new OleDbCommand(query, connection);
+                var command = new OleDbCommand(query, connection);
                 connection.Open();
 
-                OleDbDataReader reader = command.ExecuteReader();
+                var reader = command.ExecuteReader();
                 while (reader.Read())
                 {
-                    Data.Call call = new Data.Call();
+                    var call = new Data.Call();
 
                     call.CallID = Convert.ToInt32(reader[0]);
                     call.Time = Convert.ToDateTime(reader[1].ToString());
@@ -193,7 +221,6 @@ namespace NAB_Register
                 }
                 reader.Close();
                 connection.Close();
-
             }
 
             //sort decending
@@ -208,33 +235,31 @@ namespace NAB_Register
             //     { Time = x.Time, UserID = x.UserID, Team = x.Team, Banker = x.Banker,
             //         Product = x.Product, Request = x.Request, Feedback = x.Feedback,
             //         Comments = x.Comments }).ToList();
-
-
-
         }
 
         public void SaveData()
         {
             Mouse.OverrideCursor = Cursors.Wait;
 
-            DateTime theTime = DateTime.Now;
-            string userid = Environment.UserName;
-            string team = txtTeam.Text;
-            string banker = cmbBanker.SelectedItem.ToString();
-            string product = cmbProduct.SelectedItem.ToString();
-            string request = cmbRequest.SelectedItem.ToString();
-            string feedback = cmbFeedback.SelectedItem.ToString();
-            string article = txtArticle.Text;
-            string comments = txtComments.Text;
-            bool? important = chkImportant.IsChecked;
+            var theTime = DateTime.Now;
+            var userid = Environment.UserName;
+            var team = txtTeam.Text;
+            var banker = cmbBanker.SelectedItem.ToString();
+            var product = cmbProduct.SelectedItem.ToString();
+            var request = cmbRequest.SelectedItem.ToString();
+            var feedback = cmbFeedback.SelectedItem.ToString();
+            var article = txtArticle.Text;
+            var comments = txtComments.Text;
+            var important = chkImportant.IsChecked;
 
-            string query = "INSERT into Call ([Time], UserID, Team, Banker, Product, Request, Feedback, Article, Comments, Important) VALUES (@Time, @UserID, @Team, @Banker, @Product, @Request, @Feedback, @Article, @Comments, @Important)";
+            var query =
+                "INSERT into Call ([Time], UserID, Team, Banker, Product, Request, Feedback, Article, Comments, Important) VALUES (@Time, @UserID, @Team, @Banker, @Product, @Request, @Feedback, @Article, @Comments, @Important)";
 
             try
             {
-                using (OleDbConnection conn = new OleDbConnection(connectionString))
+                using (var conn = new OleDbConnection(connectionString))
                 {
-                    OleDbCommand cmd = new OleDbCommand(query, conn);
+                    var cmd = new OleDbCommand(query, conn);
                     conn.Open();
 
                     cmd.Parameters.Add("@Time", OleDbType.VarChar).Value = theTime.ToString();
@@ -257,16 +282,14 @@ namespace NAB_Register
             catch (Exception ex)
             {
                 MessageBox.Show("Could not write to the database. Try again in a few moments", "Error");
-
             }
 
             Mouse.OverrideCursor = null;
         }
 
-
         private bool ValidateFields()
         {
-            bool result = true;
+            var result = true;
             if (Submitted)
             {
                 if (cmbBanker.SelectedItem == null)
@@ -306,7 +329,6 @@ namespace NAB_Register
                     lblFeedback.Foreground = brushText;
                 }
                 if (txtArticle.IsEnabled)
-                {
                     if (string.IsNullOrWhiteSpace(txtArticle.Text))
                     {
                         result = false;
@@ -316,7 +338,6 @@ namespace NAB_Register
                     {
                         lblArticle.Foreground = brushText;
                     }
-                }
                 if (string.IsNullOrWhiteSpace(txtComments.Text))
                 {
                     result = false;
@@ -337,7 +358,7 @@ namespace NAB_Register
 
         public void SetTeam()
         {
-            foreach (Banker b in Bankers)
+            foreach (var b in Bankers)
                 if (b == cmbBanker.SelectedItem)
                 {
                     txtTeam.Text = b.Team;
@@ -349,18 +370,17 @@ namespace NAB_Register
         {
             cmbRequest.IsEnabled = true;
             cmbRequest.Items.Clear();
-            foreach (Request r in Requests)
-            {
+            foreach (var r in Requests)
                 if (r.Product == cmbProduct.SelectedItem.ToString())
                     cmbRequest.Items.Add(r.Name);
-            }
-
         }
 
         public void EnableArticles()
         {
             if (cmbFeedback.SelectedItem.ToString().ToUpper() == "NABIT ARTICLE INSUFFICIENT")
+            {
                 txtArticle.IsEnabled = true;
+            }
             else
             {
                 txtArticle.IsEnabled = false;
@@ -373,24 +393,24 @@ namespace NAB_Register
         {
             if (c is Data.Call)
             {
-                Data.Call call = c as Data.Call;
+                var call = c as Data.Call;
 
-                Call win = new Call(call);
+                var win = new Call(call);
                 win.Show();
             }
         }
 
         private void ResetWindow()
         {
-            Home win = new Home();
+            var win = new Home();
 
-            win.Top = this.Top;
-            win.Left = this.Left;
-            win.Height = this.Height;
-            win.Width = this.Width;
+            win.Top = Top;
+            win.Left = Left;
+            win.Height = Height;
+            win.Width = Width;
 
             win.Show();
-            this.Close();
+            Close();
         }
 
         private void SaveCall()
@@ -413,36 +433,34 @@ namespace NAB_Register
                 cmbProduct.SelectedItem != null || cmbRequest.SelectedItem != null ||
                 txtComments.Text != "" || txtArticle.Text != "")
             {
-                if (MessageBox.Show("You will lose all unsaved data, are you sure?", "Warning", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (
+                    MessageBox.Show("You will lose all unsaved data, are you sure?", "Warning", MessageBoxButton.YesNo) ==
+                    MessageBoxResult.Yes)
                 {
-
-                    Management.Login win = new Management.Login();
+                    var win = new Login();
                     win.ShowDialog();
-                    if (win.success == true)
+                    if (win.success)
                     {
-                        Settings win2 = new Settings();
+                        var win2 = new Settings();
                         win2.ShowDialog();
                         ResetWindow();
                     }
-
                 }
             }
             else
             {
-                Management.Login win = new Management.Login();
+                var win = new Login();
                 win.ShowDialog();
-                if (win.success == true)
+                if (win.success)
                 {
-                    Settings win2 = new Settings();
+                    var win2 = new Settings();
                     win2.ShowDialog();
                     ResetWindow();
                 }
             }
-
         }
 
-        #endregion
-
+        #endregion Methods
 
         #region EVENTS
 
@@ -463,50 +481,6 @@ namespace NAB_Register
             OpenSettings();
         }
 
-        #endregion
-
-        private void cmbBanker_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            SetTeam();
-            lblBanker.Foreground = brushText;
-        }
-
-        private void cmbProduct_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            PopulateRequests();
-            lblProduct.Foreground = brushText;
-        }
-
-        private void cmbFeedback_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            EnableArticles();
-            lblFeedback.Foreground = brushText;
-        }
-
-        private void cmbRequest_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            lblRequest.Foreground = brushText;
-        }
-
-        private void txtArticle_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            lblArticle.Foreground = brushText;
-        }
-
-        private void txtComments_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            lblComments.Foreground = brushText;
-        }
-
-        private void dgRecentCalls_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            OpenCall(dgRecentCalls.SelectedItem);
-        }
-
-        private void btnCallList_Click(object sender, RoutedEventArgs e)
-        {
-            CallList win = new CallList(GetConnectionString());
-            win.Show();
-        }
+        #endregion EVENTS
     }
 }

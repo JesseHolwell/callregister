@@ -1,19 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -22,9 +11,9 @@ namespace NAB_Register.Management
     /// </summary>
     public partial class Bankers : Window
     {
-        List<Data.Banker> bankers = new List<Data.Banker>();
+        private List<Data.Banker> bankers = new List<Data.Banker>();
         public string connectionString;
-        bool? showInactive = false;
+        private bool? showInactive = false;
 
         public Bankers(string connstr)
         {
@@ -43,7 +32,6 @@ namespace NAB_Register.Management
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     string query = "SELECT * FROM Banker";
-                    
 
                     //get bankers
                     OleDbCommand command = new OleDbCommand(query, connection);
@@ -68,7 +56,6 @@ namespace NAB_Register.Management
                 }
                 dgBankers.ItemsSource = null;
                 dgBankers.ItemsSource = bankers;
-                
             }
             catch (Exception ex)
             {
@@ -76,7 +63,6 @@ namespace NAB_Register.Management
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

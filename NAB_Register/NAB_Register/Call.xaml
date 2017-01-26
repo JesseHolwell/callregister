@@ -8,41 +8,39 @@
         Title="Call " MinWidth="480" MinHeight="250" Width="480" Height="250" WindowStyle="ToolWindow" Background="#FFF6F8FA">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="150" />
+            <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="20" />
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblID" Content="ID:" Margin="0,10,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="lblTime" Content="Time:" Margin="0,10,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3"/>
-        <Label x:Name="lblBanker" Content="Banker:" Margin="0,36,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="lblTeam" Content="Team:" Margin="0,36,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3"/>
-        <Label x:Name="lblUser" Content="User ID:" Margin="0,62,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="lblProduct" Content="Product:" Margin="0,62,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3"/>
-        <Label x:Name="lblRequest" Content="Request:" Margin="0,88,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1"/>
-        <Label x:Name="lblFeedback" Content="Feedback:" Margin="0,88,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3"/>
-        <Label x:Name="lblComments" Content="Comments:" Margin="0,146,10,0" HorizontalContentAlignment="Right" Grid.RowSpan="2" Grid.Column="1" Height="26" VerticalAlignment="Top"/>
-        <Label x:Name="lblArticle" Content="Article:" Margin="0,114,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3"/>
-        <TextBox x:Name="txtID" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True"/>
-        <TextBox x:Name="txtTime" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True"/>
-        <TextBox x:Name="txtBanker" Height="23" Margin="0,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True"/>
-        <TextBox x:Name="txtTeam" Height="23" Margin="0,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True"/>
-        <TextBox x:Name="txtUser" Height="23" Margin="0,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True"/>
-        <TextBox x:Name="txtProduct" Height="23" Margin="0,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True"/>
-        <TextBox x:Name="txtRequest" Height="23" Margin="0,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True"/>
-        <TextBox x:Name="txtFeedback" Height="23" Margin="0,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True"/>
-        <Label x:Name="lblImportant" Content="IMPORTANT"  Margin="0,114,0,0" HorizontalContentAlignment="Left" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top"/>
-        <TextBox x:Name="txtArticle" Height="23" Margin="0,118,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True"/>
-        <TextBox x:Name="txtComments" Margin="0,0,0,20" TextWrapping="Wrap" Text="TextBox" Grid.Column="2" IsReadOnly="True" Grid.ColumnSpan="3" Grid.Row="1"/>
-
+        <Label x:Name="lblID" Content="ID:" Margin="0,10,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1" />
+        <Label x:Name="lblTime" Content="Time:" Margin="0,10,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" />
+        <Label x:Name="lblBanker" Content="Banker:" Margin="0,36,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1" />
+        <Label x:Name="lblTeam" Content="Team:" Margin="0,36,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" />
+        <Label x:Name="lblUser" Content="User ID:" Margin="0,62,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1" />
+        <Label x:Name="lblProduct" Content="Product:" Margin="0,62,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" />
+        <Label x:Name="lblRequest" Content="Request:" Margin="0,88,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="1" />
+        <Label x:Name="lblFeedback" Content="Feedback:" Margin="0,88,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" />
+        <Label x:Name="lblComments" Content="Comments:" Margin="0,146,10,0" HorizontalContentAlignment="Right" Grid.RowSpan="2" Grid.Column="1" Height="26" VerticalAlignment="Top" />
+        <Label x:Name="lblArticle" Content="Article:" Margin="0,114,10,0" HorizontalContentAlignment="Right" VerticalAlignment="Top" Grid.Column="3" />
+        <TextBox x:Name="txtID" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True" />
+        <TextBox x:Name="txtTime" Height="23" Margin="0,14,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True" />
+        <TextBox x:Name="txtBanker" Height="23" Margin="0,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True" />
+        <TextBox x:Name="txtTeam" Height="23" Margin="0,40,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True" />
+        <TextBox x:Name="txtUser" Height="23" Margin="0,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True" />
+        <TextBox x:Name="txtProduct" Height="23" Margin="0,66,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True" />
+        <TextBox x:Name="txtRequest" Height="23" Margin="0,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="2" IsReadOnly="True" />
+        <TextBox x:Name="txtFeedback" Height="23" Margin="0,92,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True" />
+        <Label x:Name="lblImportant" Content="IMPORTANT"  Margin="0,114,0,0" HorizontalContentAlignment="Left" Grid.Column="2" FontSize="16" HorizontalAlignment="Left" Height="30" VerticalAlignment="Top" />
+        <TextBox x:Name="txtArticle" Height="23" Margin="0,118,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Grid.Column="4" IsReadOnly="True" />
+        <TextBox x:Name="txtComments" Margin="0,0,0,20" TextWrapping="Wrap" Text="TextBox" Grid.Column="2" IsReadOnly="True" Grid.ColumnSpan="3" Grid.Row="1" />
 
         <!--<TextBlock x:Name="txtComments" Margin="10,145,10,10" TextWrapping="Wrap" Text="TextBlock" Grid.ColumnSpan="4" Grid.Column="1" />-->
-
     </Grid>
 </Window>

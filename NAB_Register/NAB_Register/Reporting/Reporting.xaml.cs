@@ -1,23 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.OleDb;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -31,19 +22,18 @@ namespace NAB_Register.Management
         public string senderUsername;
         public string senderPassword;
 
-        List<Data.Call> calls = new List<Data.Call>();
-        List<Data.Team> teams = new List<Data.Team>();
+        private List<Data.Call> calls = new List<Data.Call>();
+        private List<Data.Team> teams = new List<Data.Team>();
 
-        DateTime? selectedDate = new DateTime();
+        private DateTime? selectedDate = new DateTime();
 
-        readonly Encoding _encoding = Encoding.Unicode;
+        private readonly Encoding _encoding = Encoding.Unicode;
 
         public Reporting(string connStr)
         {
             InitializeComponent();
             connectionString = connStr;
             GetCredentials();
-           
         }
 
         private void GetCredentials()
@@ -72,7 +62,6 @@ namespace NAB_Register.Management
                         txtEmail.Text = "";
                         txtPassword.Password = "";
                     }
-                    
                 }
             }
             catch (Exception ex)
@@ -125,7 +114,6 @@ namespace NAB_Register.Management
                 }
                 reader.Close();
                 connection.Close();
-
             }
         }
 
@@ -138,7 +126,6 @@ namespace NAB_Register.Management
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     string query = "SELECT * FROM Team";
-
 
                     //get teams
                     OleDbCommand command = new OleDbCommand(query, connection);
@@ -159,7 +146,6 @@ namespace NAB_Register.Management
             {
                 MessageBox.Show("Errors while connecting to the database. Try again in a few moments or try setting the location again", "Error");
             }
-
         }
 
         public void ProcessReport()
@@ -167,7 +153,6 @@ namespace NAB_Register.Management
             selectedDate = dpDate.SelectedDate;
             if (selectedDate != null)
             {
-                
                 Mouse.OverrideCursor = Cursors.Wait;
                 //lblStatus.Content = "Processing call list";
 
@@ -212,7 +197,6 @@ namespace NAB_Register.Management
                         callList.Add(c);
                     }
 
-
                     try
                     {
                         //make csv
@@ -230,7 +214,6 @@ namespace NAB_Register.Management
                             attachment = "Data\\" + fileName + ".csv";
                             System.IO.File.WriteAllText(attachment, csvString);
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -251,7 +234,6 @@ namespace NAB_Register.Management
                     {
                         MessageBox.Show("Errors while deleting the reports\n" + ex.Message, "Error");
                     }
-
                 }
 
                 //lblStatus.Content = "Finished reporting.";
@@ -271,12 +253,10 @@ namespace NAB_Register.Management
 
             if (!string.IsNullOrEmpty(to) && input.IsValid(to))
             {
-
                 using (SmtpClient client = new SmtpClient())
                 {
                     using (MailMessage mail = new MailMessage(senderUsername, to))
                     {
-
                         client.UseDefaultCredentials = false;
                         client.EnableSsl = true;
                         client.Credentials = new NetworkCredential(senderUsername, senderPassword);
@@ -322,7 +302,6 @@ namespace NAB_Register.Management
                 MessageBox.Show("Errors attaching recipient\n" + "Email address is not valid: " + to, "Error");
             }
         }
-
 
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {

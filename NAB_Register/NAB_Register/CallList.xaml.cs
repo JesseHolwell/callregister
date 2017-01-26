@@ -1,22 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using NAB_Register.Data;
+using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data;
-using System.Data.SqlClient;
-using NAB_Register.Data;
-using System.Data.OleDb;
-using System.IO;
-using Microsoft.Win32;
 
 namespace NAB_Register
 {
@@ -27,23 +17,23 @@ namespace NAB_Register
     {
         #region Variables
 
-        List<Data.Call> Calls = new List<Data.Call>();
-        List<Data.Call> FilteredCalls = new List<Data.Call>();
+        private List<Data.Call> Calls = new List<Data.Call>();
+        private List<Data.Call> FilteredCalls = new List<Data.Call>();
 
-        List<Banker> Bankers = new List<Banker>();
-        List<string> Products = new List<string>();
-        List<Request> Requests = new List<Request>();
-        List<string> Feedbacks = new List<string>();
-        List<Team> Teams = new List<Team>();
+        private List<Banker> Bankers = new List<Banker>();
+        private List<string> Products = new List<string>();
+        private List<Request> Requests = new List<Request>();
+        private List<string> Feedbacks = new List<string>();
+        private List<Team> Teams = new List<Team>();
 
         public string connectionString;
 
-        #endregion
+        #endregion Variables
 
         #region Methods
+
         public CallList(string connStr)
         {
-
             InitializeComponent();
 
             connectionString = connStr;
@@ -84,7 +74,6 @@ namespace NAB_Register
                     }
                     reader.Close();
                     connection.Close();
-
                 }
 
                 //sort decending
@@ -95,9 +84,7 @@ namespace NAB_Register
             }
             catch (Exception ex)
             {
-
             }
-
         }
 
         private void GetDataItems()
@@ -187,7 +174,6 @@ namespace NAB_Register
                     reader.Close();
 
                     connection.Close();
-
                 }
 
                 //TODO: nullable combobox
@@ -205,7 +191,6 @@ namespace NAB_Register
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         public void FilterSelection()
@@ -344,7 +329,7 @@ namespace NAB_Register
             }
         }
 
-        #endregion
+        #endregion Methods
 
         #region EventListeners
 
@@ -364,7 +349,6 @@ namespace NAB_Register
             this.Close();
         }
 
-
         private void dpFromDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterSelection();
@@ -375,7 +359,6 @@ namespace NAB_Register
             FilterSelection();
         }
 
-
         private void chkImportant_Checked(object sender, RoutedEventArgs e)
         {
             FilterSelection();
@@ -385,7 +368,6 @@ namespace NAB_Register
         {
             FilterSelection();
         }
-
 
         private void txtUserID_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -402,7 +384,6 @@ namespace NAB_Register
             FilterSelection();
         }
 
-
         private void cmbProduct_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterSelection();
@@ -418,8 +399,7 @@ namespace NAB_Register
             FilterSelection();
         }
 
-
-        #endregion
+        #endregion EventListeners
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {

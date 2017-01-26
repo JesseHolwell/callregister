@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NAB_Register.Data
 {
@@ -37,10 +33,6 @@ namespace NAB_Register.Data
                 Important.ToString() + "\n";
 
             return content;
-
         }
-
     }
-
-    
 }

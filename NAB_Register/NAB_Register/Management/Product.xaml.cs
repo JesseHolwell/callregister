@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -21,7 +11,7 @@ namespace NAB_Register.Management
     public partial class Product : Window
     {
         public string connectionString;
-        Data.Product product;
+        private Data.Product product;
 
         public Product(string connStr, object p)
         {
@@ -40,7 +30,6 @@ namespace NAB_Register.Management
                 txtProductName.Text = product.Name;
                 chkActive.IsChecked = product.IsActive;
             }
-
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -60,7 +49,6 @@ namespace NAB_Register.Management
                 {
                     id = product.ID;
                     query = "UPDATE product SET ProductName = ? , IsActive = ? WHERE ProductID = ? ";
-
                 }
 
                 product = new Data.Product(id, txtProductName.Text, Convert.ToBoolean(chkActive.IsChecked));

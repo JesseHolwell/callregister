@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -20,9 +11,9 @@ namespace NAB_Register.Management
     /// </summary>
     public partial class Feedbacks : Window
     {
-        List<Data.Feedback> feedbacks = new List<Data.Feedback>();
+        private List<Data.Feedback> feedbacks = new List<Data.Feedback>();
         public string connectionString;
-        bool? showInactive = false;
+        private bool? showInactive = false;
 
         public Feedbacks(string connstr)
         {
@@ -41,7 +32,6 @@ namespace NAB_Register.Management
                 using (OleDbConnection connection = new OleDbConnection(connectionString))
                 {
                     string query = "SELECT * FROM Feedback";
-
 
                     //get feedback
                     OleDbCommand command = new OleDbCommand(query, connection);
@@ -66,7 +56,6 @@ namespace NAB_Register.Management
                 }
                 dgFeedbacks.ItemsSource = null;
                 dgFeedbacks.ItemsSource = feedbacks;
-
             }
             catch (Exception ex)
             {
@@ -74,7 +63,6 @@ namespace NAB_Register.Management
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

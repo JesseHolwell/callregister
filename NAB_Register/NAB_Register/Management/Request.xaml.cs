@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -21,8 +12,8 @@ namespace NAB_Register.Management
     public partial class Request : Window
     {
         public string connectionString;
-        Data.Request request;
-        List<Data.Product> products = new List<Data.Product>();
+        private Data.Request request;
+        private List<Data.Product> products = new List<Data.Product>();
 
         public Request(string connStr, object r)
         {
@@ -43,7 +34,6 @@ namespace NAB_Register.Management
                 cmbProduct.Text = request.Product;
                 chkActive.IsChecked = request.IsActive;
             }
-
         }
 
         private void GetDataItems()
@@ -79,7 +69,6 @@ namespace NAB_Register.Management
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -99,7 +88,6 @@ namespace NAB_Register.Management
                 {
                     id = request.ID;
                     query = "UPDATE Request SET RequestName = ? , Product = ? , IsActive = ? WHERE RequestID = ? ";
-
                 }
 
                 request = new Data.Request(id, txtRequestName.Text, cmbProduct.SelectedItem.ToString(), Convert.ToBoolean(chkActive.IsChecked));

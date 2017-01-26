@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NAB_Register.Data
+﻿namespace NAB_Register.Data
 {
     public class Banker
     {
@@ -24,13 +18,11 @@ namespace NAB_Register.Data
             Team = team;
             IsActive = active;
             FullName = FName + " " + LName;
-
         }
 
         public override string ToString()
         {
             return FullName;
         }
-
     }
 }

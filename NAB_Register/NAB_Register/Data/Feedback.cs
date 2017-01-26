@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NAB_Register.Data
+﻿namespace NAB_Register.Data
 {
     public class Feedback
     {
@@ -17,13 +11,11 @@ namespace NAB_Register.Data
             ID = id;
             Name = name;
             IsActive = active;
-
         }
 
         public override string ToString()
         {
             return Name;
         }
-
     }
 }

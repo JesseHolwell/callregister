@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.OleDb;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace NAB_Register.Management
 {
@@ -20,9 +11,9 @@ namespace NAB_Register.Management
     /// </summary>
     public partial class Requests : Window
     {
-        List<Data.Request> requests = new List<Data.Request>();
+        private List<Data.Request> requests = new List<Data.Request>();
         public string connectionString;
-        bool? showInactive = false;
+        private bool? showInactive = false;
 
         public Requests(string connstr)
         {
@@ -42,7 +33,6 @@ namespace NAB_Register.Management
                 {
                     string query = "SELECT * FROM Request";
 
-
                     //get requests
                     OleDbCommand command = new OleDbCommand(query, connection);
                     connection.Open();
@@ -59,14 +49,13 @@ namespace NAB_Register.Management
                         }
                         else
                         {
-                            requests.Add(new Data.Request(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(),Convert.ToBoolean(reader[3])));
+                            requests.Add(new Data.Request(Convert.ToInt32(reader[0]), reader[1].ToString(), reader[2].ToString(), Convert.ToBoolean(reader[3])));
                         }
                     }
                     reader.Close();
                 }
                 dgRequests.ItemsSource = null;
                 dgRequests.ItemsSource = requests;
-
             }
             catch (Exception ex)
             {
@@ -74,7 +63,6 @@ namespace NAB_Register.Management
             }
 
             Mouse.OverrideCursor = null;
-
         }
 
         private void btnNew_Click(object sender, RoutedEventArgs e)

@@ -1,19 +1,8 @@
 ﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using NAB_Register.Management;
+using System;
+using System.IO;
+using System.Windows;
 
 namespace NAB_Register
 {
@@ -25,7 +14,6 @@ namespace NAB_Register
         public Settings()
         {
             InitializeComponent();
-
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -58,11 +46,10 @@ namespace NAB_Register
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("There was a problem setting the database location", "Error");
             }
-            
         }
 
         private string GetConnectionString()
@@ -85,7 +72,7 @@ namespace NAB_Register
         }
 
         private void btnManageBankers_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             Bankers win = new Bankers(GetConnectionString());
             win.ShowDialog();
         }

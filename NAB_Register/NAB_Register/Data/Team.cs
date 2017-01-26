@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NAB_Register.Data
+﻿namespace NAB_Register.Data
 {
-    class Team
+    internal class Team
     {
         public int? ID { get; set; }
         public int Number { get; set; }
@@ -21,7 +15,6 @@ namespace NAB_Register.Data
             Name = name;
             Email = email;
             IsActive = active;
-
         }
 
         public override string ToString()
